@@ -1,0 +1,8 @@
+---
+
+fragentweb_staging_dir: /tmp/staging
+fragentweb_install_file: web-agents-5.5.1.0-Apache_v24_Linux_64bit.zip
+fragentweb_fr_user: fr
+fragentweb_fr_group: fr
+fragentweb_install_path: /opt/ois/fragent
+fragentweb_instance_path: /var/config/fragent

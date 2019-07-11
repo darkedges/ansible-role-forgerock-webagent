@@ -1,0 +1,41 @@
+---
+
+- name: Install required packages. This takes a while - be patient
+  package: 
+    name: "{{ item }}"
+    state: latest
+  with_items:
+   - unzip
+
+- name: create top level software directories
+  file: 
+    path: "{{ item }}" 
+    state: directory 
+    owner: "{{ fragentweb_fr_user }}" 
+    group: "{{ fragentweb_fr_group }}" 
+    mode: 0755
+  loop:
+    - "{{ fragentweb_install_path }}" 
+    - "{{ fragentweb_instance_path }}"
+    - "{{ fragentweb_staging_dir }}" 
+
+- name: upload staging files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ fragentweb_fr_user }}"
+    group: "{{ fragentweb_fr_group }}" 
+    mode: 0755 
+  loop:
+    - src: "{{ fragentweb_install_file }}"
+      dest: "{{ fragentweb_staging_dir }}/fragentweb.zip" 
+
+- name: unarchive
+  unarchive: 
+    src: "{{ fragentweb_staging_dir }}/fragentweb.zip" 
+    dest: "{{ fragentweb_install_path }}" 
+    copy: no      
+    list_files: yes
+    owner: "{{ fragentweb_fr_user }}"
+    creates: "{{ fragentweb_install_path }}/web_agents/apache24_agent"
+  register: archive_contents
