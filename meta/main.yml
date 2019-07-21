@@ -2,6 +2,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: darkedges.forgerock_webagent
   author: darkedges
   description: ForgeRock Web Agent for Linux.
   company: "DarkEdges"
